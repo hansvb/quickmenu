@@ -2,6 +2,7 @@ package quickmenu
 
 import (
 	"fmt"
+	"os"
 )
 
 type QuickMenuItem struct {
@@ -27,6 +28,12 @@ func (qm QuickMenu) Prompt() {
 	_, err := fmt.Scanf("%d", &choice)
 	if err != nil {
 		fmt.Printf("Wrong input: [%s]\n", err)
+		os.Exit(3)
+	}
+
+	if choice > len(qm) || choice <= 0 {
+		fmt.Printf("Choice [%d] not available\n", choice)
+		os.Exit(2)
 	}
 
 	for _, qmi := range qm {
