@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/hansvb/quickmenu"
 )
 
@@ -17,5 +18,5 @@ func main() {
 	qm := quickmenu.QuickMenu{}
 	qm.Add("Say Hi!", sayHi)
 	qm.Add("Say Bye!", sayBye)
-	qm.Prompt()
+	qm.PromptOnceAndQuit()
 }

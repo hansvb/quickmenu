@@ -18,7 +18,7 @@ func (qm *QuickMenu) Add(description string, f func()) {
 	*qm = append(*qm, n)
 }
 
-func (qm QuickMenu) Prompt() {
+func (qm QuickMenu) PromptOnceAndQuit() {
 	choice := 0
 
 	for _, qmi := range qm {
@@ -39,6 +39,39 @@ func (qm QuickMenu) Prompt() {
 	for _, qmi := range qm {
 		if choice == qmi.order {
 			qmi.function()
+		}
+	}
+}
+
+func (qm QuickMenu) PromptLoop() {
+	choice := 0
+
+	for {
+		fmt.Printf("0. Quit\n")
+
+		for _, qmi := range qm {
+			fmt.Printf("%d. %s\n", qmi.order, qmi.description)
+		}
+
+		_, err := fmt.Scanf("%d", &choice)
+		if err != nil {
+			fmt.Printf("Wrong input: [%s]\n", err)
+			continue
+		}
+
+		if choice > len(qm) || choice < 0 {
+			fmt.Printf("Choice [%d] not available\n", choice)
+			continue
+		}
+
+		if choice == 0 {
+			break
+		}
+
+		for _, qmi := range qm {
+			if choice == qmi.order {
+				qmi.function()
+			}
 		}
 	}
 }
