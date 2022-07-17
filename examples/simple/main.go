@@ -16,6 +16,9 @@ func sayBye() {
 
 func main() {
 	qm := quickmenu.QuickMenu{}
+	qm.AfterMenuFunc = func() {
+		fmt.Println("\nMake your choice:")
+	}
 	qm.Add("Say Hi!", sayHi)
 	qm.Add("Say Bye!", sayBye)
 	qm.PromptOnceAndQuit()
